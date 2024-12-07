@@ -3,9 +3,9 @@ dotenv.config({ path: "../.env" });
 console.log("MONGODB_URL from .env:", process.env.MONGODB_URL);
 import express from 'express'
 import mongoose from 'mongoose'
-import { userRouter } from './routes/user';
-import { contentRouter } from './routes/content';
-import { tagRouter } from './routes/tags';
+import { userRouter } from './src/routes/user';
+import { contentRouter } from './src/routes/content';
+import { tagRouter } from './src/routes/tags';
 import cors from 'cors';
 
 const app = express();

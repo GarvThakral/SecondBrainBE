@@ -2,14 +2,8 @@
     "version": 2,
     "builds": [
       {
-        "src": "src/**/*.ts",
-        "use": "@vercel/node",
-        "config": {
-          "copyFiles": [
-            "src/**/*.ts"
-          ],
-          "distDir": "dist"
-        }
+        "src": "src/index.ts",
+        "use": "@vercel/node"
       }
     ],
     "routes": [

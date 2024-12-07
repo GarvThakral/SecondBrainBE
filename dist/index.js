@@ -12,6 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config({ path: "../.env" });
+console.log("MONGODB_URL from .env:", process.env.MONGODB_URL);
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = require("./routes/user");
@@ -26,7 +29,11 @@ app.use('/api/v1', content_1.contentRouter);
 app.use('/api/v1', tags_1.tagRouter);
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield mongoose_1.default.connect('mongodb://localhost:27017/second-brain');
+        const mongoURL = process.env.MONGODB_URL;
+        if (!mongoURL) {
+            throw new Error("MONGODB_URL environment variable is not set");
+        }
+        yield mongoose_1.default.connect(mongoURL);
         console.log("Connected to mongoDB database");
         console.log("Listening on port 3000");
         app.listen(3000);

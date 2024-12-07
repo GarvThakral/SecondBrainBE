@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "../.env" });
+console.log("MONGODB_URL from .env:", process.env.MONGODB_URL);
 import express from 'express'
 import mongoose from 'mongoose'
 import { userRouter } from './routes/user';
@@ -15,8 +18,11 @@ app.use('/api/v1',contentRouter);
 app.use('/api/v1',tagRouter);
 
 async function main():Promise<void>{
-
-    await mongoose.connect('mongodb://localhost:27017/second-brain');
+    const mongoURL = process.env.MONGODB_URL;
+    if (!mongoURL) {
+        throw new Error("MONGODB_URL environment variable is not set");
+    }
+    await mongoose.connect(mongoURL);
     console.log("Connected to mongoDB database");
 
     console.log("Listening on port 3000")

@@ -59,8 +59,10 @@ userRouter.post('/signin',async (req,res)=>{
 
         if(user){
             const token = Jwt.sign({id:user._id},userSecret);
+            const username = user.username;
             res.json({
                 message:"Welcome Back "+user.username,
+                username,
                 token
             })
         }else{

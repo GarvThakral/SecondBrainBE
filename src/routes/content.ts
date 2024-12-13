@@ -92,6 +92,22 @@ contentRouter.delete('/content',userMiddleware,async (req,res)=>{
         })
     }
 })
+contentRouter.get('/content/:type',userMiddleware,async (req,res)=>{
+    //@ts-ignore
+    const userId = req.id;
+    const type = req.params.type;
+    try{
+        const content = await contentModel.find({
+            type,
+            userId
+        })
+        console.log(content)
+        res.json({
+            content
+        })
+    }catch(e){
 
+    }
+})
 
 export { contentRouter };
